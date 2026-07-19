@@ -23,9 +23,9 @@
           <span>Mímica</span>
         </div>
 
-        <p class="progress" id="progress" aria-live="polite">1 de 35</p>
+        <p class="progress" id="progress" aria-live="polite">0 de 0</p>
 
-        <button class="menu-button" id="openEditor" type="button" aria-label="Abrir lista de palavras">
+        <button class="menu-button" id="openEditor" type="button" aria-label="Abrir lista de palavras" aria-controls="editor" aria-expanded="false">
           <span></span>
           <span></span>
           <span></span>
@@ -33,9 +33,42 @@
       </header>
 
       <section class="stage" aria-live="polite" aria-atomic="true">
-        <p class="eyebrow" id="eyebrow">Sua mímica é</p>
-        <h1 class="word" id="word">Emborcadura</h1>
-        <p class="hidden-hint" id="hiddenHint" hidden>Passe o celular para a próxima pessoa</p>
+        <div class="word-area">
+          <p class="eyebrow" id="eyebrow">Lista vazia</p>
+          <h1 class="word word--placeholder" id="word">Adicione sua primeira mímica</h1>
+          <p class="hidden-hint" id="hiddenHint" hidden>Passe o celular para a próxima pessoa</p>
+        </div>
+
+        <section class="timer" id="timer" aria-label="Timer da rodada">
+          <div class="timer-heading">
+            <span class="timer-status" id="timerStatus">Sem mímicas</span>
+            <button class="timer-limit-button" id="openTimerSettings" type="button" aria-haspopup="dialog">
+              Limite · 1:00
+            </button>
+          </div>
+
+          <time class="timer-display" id="timerDisplay" datetime="PT60S">1:00</time>
+
+          <input
+            class="timer-range"
+            id="timerRange"
+            type="range"
+            min="0"
+            max="60"
+            step="1"
+            value="60"
+            aria-label="Ajustar tempo restante"
+          />
+
+          <div class="timer-controls" aria-label="Controles do timer">
+            <button class="timer-action" id="timerMinus" type="button" aria-label="Diminuir 10 segundos">−10</button>
+            <button class="timer-action timer-action--play" id="timerPlay" type="button" aria-label="Iniciar timer">
+              <span id="timerPlayIcon" aria-hidden="true">▶</span>
+            </button>
+            <button class="timer-action" id="timerReset" type="button" aria-label="Reiniciar timer">↻</button>
+            <button class="timer-action" id="timerPlus" type="button" aria-label="Adicionar 10 segundos">+10</button>
+          </div>
+        </section>
       </section>
 
       <nav class="controls" aria-label="Controles do jogo">
@@ -58,7 +91,7 @@
 
     <div class="scrim" id="scrim" hidden></div>
 
-    <aside class="editor" id="editor" aria-labelledby="editorTitle" aria-hidden="true">
+    <aside class="editor" id="editor" role="dialog" aria-modal="true" aria-labelledby="editorTitle" aria-hidden="true">
       <header class="editor-header">
         <div>
           <p class="editor-kicker">Organizar jogo</p>
@@ -76,12 +109,42 @@
       </form>
 
       <div class="list-meta">
-        <p><strong id="itemCount">35</strong> itens na ordem do jogo</p>
-        <button class="text-button" id="resetButton" type="button">Restaurar lista</button>
+        <p><strong id="itemCount">0</strong> itens na ordem do jogo</p>
+        <button class="text-button" id="clearButton" type="button" disabled>Limpar lista</button>
       </div>
 
       <ol class="word-list" id="wordList"></ol>
     </aside>
+
+    <dialog class="timer-dialog" id="timerSettings" aria-labelledby="timerSettingsTitle">
+      <div class="timer-dialog-header">
+        <div>
+          <p class="editor-kicker">Timer da rodada</p>
+          <h2 id="timerSettingsTitle">Limite de tempo</h2>
+        </div>
+        <button class="close-button" id="closeTimerSettings" type="button" aria-label="Fechar limite de tempo">×</button>
+      </div>
+
+      <p class="timer-dialog-copy">Escolha um atalho ou defina o tempo em segundos.</p>
+
+      <div class="timer-presets" aria-label="Limites rápidos">
+        <button type="button" data-limit="30">30s</button>
+        <button type="button" data-limit="60">1 min</button>
+        <button type="button" data-limit="90">1min30</button>
+        <button type="button" data-limit="120">2 min</button>
+      </div>
+
+      <form class="custom-limit-form" id="customLimitForm">
+        <label for="customLimit">Personalizado</label>
+        <div class="custom-limit-row">
+          <div class="limit-input-wrap">
+            <input id="customLimit" name="customLimit" type="number" min="5" max="3600" step="5" inputmode="numeric" required />
+            <span>segundos</span>
+          </div>
+          <button type="submit">Aplicar</button>
+        </div>
+      </form>
+    </dialog>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </body>
