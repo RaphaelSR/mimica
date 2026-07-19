@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f2e8" />
+    <meta name="description" content="Uma lista simples de palavras para jogar mímica." />
+    <title>Mímica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Manrope:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell" aria-label="Jogo de mímica">
+      <header class="topbar">
+        <div class="brand" aria-label="Mímica">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Mímica</span>
+        </div>
+
+        <p class="progress" id="progress" aria-live="polite">1 de 35</p>
+
+        <button class="menu-button" id="openEditor" type="button" aria-label="Abrir lista de palavras">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </header>
+
+      <section class="stage" aria-live="polite" aria-atomic="true">
+        <p class="eyebrow" id="eyebrow">Sua mímica é</p>
+        <h1 class="word" id="word">Emborcadura</h1>
+        <p class="hidden-hint" id="hiddenHint" hidden>Passe o celular para a próxima pessoa</p>
+      </section>
+
+      <nav class="controls" aria-label="Controles do jogo">
+        <button class="control-button control-button--secondary" id="previousButton" type="button">
+          <span class="control-icon" aria-hidden="true">←</span>
+          <span>Voltar</span>
+        </button>
+
+        <button class="control-button control-button--hide" id="hideButton" type="button" aria-pressed="false">
+          <span class="eye-icon" aria-hidden="true"></span>
+          <span id="hideLabel">Ocultar</span>
+        </button>
+
+        <button class="control-button control-button--primary" id="nextButton" type="button">
+          <span>Próxima</span>
+          <span class="control-icon" aria-hidden="true">→</span>
+        </button>
+      </nav>
+    </main>
+
+    <div class="scrim" id="scrim" hidden></div>
+
+    <aside class="editor" id="editor" aria-labelledby="editorTitle" aria-hidden="true">
+      <header class="editor-header">
+        <div>
+          <p class="editor-kicker">Organizar jogo</p>
+          <h2 id="editorTitle">Lista de mímicas</h2>
+        </div>
+        <button class="close-button" id="closeEditor" type="button" aria-label="Fechar lista">×</button>
+      </header>
+
+      <form class="add-form" id="addForm">
+        <label for="newWord">Adicionar nova mímica</label>
+        <div class="add-row">
+          <input id="newWord" name="newWord" type="text" maxlength="80" autocomplete="off" placeholder="Ex.: Andar na lua" required />
+          <button type="submit">Adicionar</button>
+        </div>
+      </form>
+
+      <div class="list-meta">
+        <p><strong id="itemCount">35</strong> itens na ordem do jogo</p>
+        <button class="text-button" id="resetButton" type="button">Restaurar lista</button>
+      </div>
+
+      <ol class="word-list" id="wordList"></ol>
+    </aside>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
